@@ -109,3 +109,76 @@ function AddData(){
         document.getElementById("email").value = "";
     }
 }
+
+
+// function to delete data 
+
+function deleteData(index){
+
+    var peopleList;
+
+    if(localStorage.getItem("peopleList") == null){
+        peopleList = [];
+
+    }else {
+        peopleList = JSON.parse(localStorage.getItem("peopleList"));
+    }
+
+    peopleList.splice(index, 1);
+    localStorage.setItem("peopleList", JSON.stringify(peopleList));
+
+    ShowData();
+    
+}
+
+
+// function to Update
+
+function updateData(index){
+
+    // Submit button will be hide and the update button will show for update data
+
+    document.getElementById("submit").style.display = "none";
+    document.getElementById("update").style.display = "block";
+
+    var peopleList;
+
+    if(localStorage.getItem("peopleList") == null){
+        peopleList = [];
+
+    }else {
+        peopleList = JSON.parse(localStorage.getItem("peopleList"));
+    }
+
+ 
+
+    document.getElementById("name").value = peopleList[index].name;
+    document.getElementById("age").value = peopleList[index].age;
+    document.getElementById("address").value = peopleList[index].age;
+    document.getElementById("email").value = peopleList[index].email;
+
+    document.querySelector('#update').onclick = function(){
+
+        if(validateForm() == true){
+            peopleList[index].name = document.getElementById("name").value;
+            peopleList[index].age = document.getElementById("age").value;
+            peopleList[index].address = document.getElementById("address").value;
+            peopleList[index].email = document.getElementById("email").value;
+
+            localStorage.setItem("peopleList", JSON.stringify(peopleList));
+
+            ShowData();
+
+
+            document.getElementById("name").value = "";
+            document.getElementById("age").value = "";
+            document.getElementById("address").value = "";
+            document.getElementById("email").value = "";
+
+            document.getElementById("submit").style.display = "block";
+            document.getElementById("update").style.display = "none";
+
+        }
+    }
+
+}
